@@ -814,6 +814,12 @@ welcome
 
 
 @media (max-width: 765px) {
+
+  .header-area .main-nav .nav {
+    margin-right:10px;
+
+  }
+  
   .compress{
     padding-left:5px;
     padding-right:5px;

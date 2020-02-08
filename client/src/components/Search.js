@@ -108,7 +108,6 @@ export class RecipeSearch extends Component {
         return (
             <Ref ref={this.contextRef}>
 <div className="container">
-                <h2 style={{ marginTop: '175px', marginLeft: '50px', marginBottom: '90px', fontSize: '48px', fontWeight: '600' }}> Search for your favourites!</h2>
 
                 <Sticky  context={this.contextRef}>
                     <div className="row" style={{ paddingBottom: '40px' }}>
