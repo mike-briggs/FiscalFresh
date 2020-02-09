@@ -818,7 +818,8 @@ class Home extends React.Component {
                                 
 
 
-                                <Sliders showRecipe={this.handleGetRecipe} callback={this.addToCart} log={this.state.loggedIn} setVisible={this.setVisibleR} recipe1={this.state.category1} recipe2={this.state.category2} recipe3={this.state.category3} />
+                                <Sliders showRecipe={this.handleGetRecipe} callback={this.addToCart} log={this.state.loggedIn} setVisible={this.setVisibleR} 
+                                    recipe1={this.state.category1} recipe2={this.state.category2} recipe3={this.state.category3} previouslyOrdered ={this.state.history} isSignedIn={this.state.loggedIn}/>
                                 {/*<RecipeSearch callback={this.addToCart} recipes={recipes.results1.concat(recipes.results2.concat(recipes.results3))} />*/}
                                 <RecipeSearch setVisible={this.setVisibleR} log={this.state.loggedIn} callback={this.addToCart}/>
                                 <Footer />
