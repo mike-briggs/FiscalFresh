@@ -7,7 +7,7 @@ with open('credentials.json', 'r') as f:
     creds = json.loads(f.read())
     dbKey = creds['database_key']
 
-dbconnection = "mongodb+srv://qhacks2020:{}@cluster0-kq8wa.gcp.mongodb.net/test?retryWrites=true&w=majority".format(dbKey)
+dbconnection = "mongodb+srv://qhacks-db:{}@recipiestorage-bqfba.mongodb.net/test?retryWrites=true&w=majority".format(dbKey)
 client = MongoClient(dbconnection)
 
 recipe_history = client.get_database('recipe_history')
@@ -63,13 +63,16 @@ def add_history(request_body):
     }
 
 def get_pantry(email):
+    cursor = pantry_records.find({})
+    for document in cursor:
+        print(document)
     if (pantry_records.count_documents({'email':email}) != 1):
         return {
             'err':"email not found"
         }
 
     entry = pantry_records.find_one({'email': email})
-    return (json.dumps(entry['items']))
+    return (json.dumps(entry['pantry_items']))
 
 def add_pantry(request_body):
     if not request_body:
