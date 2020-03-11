@@ -3,6 +3,22 @@ import SliderRecipe from './SliderRecipe'
 import RecipeSearch from "./Search.js"
 
 
+function RecenltyOrdered(props){
+    if(!props.show){
+        return null;
+    }
+
+    return (
+        <div>
+            <h3 style={{ marginTop: '10px', marginLeft: '50px', marginBottom: '10px', fontWeight: '600' }}> Recently Ordered</h3>
+            <div className="margin-bottom-60">
+                <SliderRecipe showRecipe={props.showRecipe} log={props.log} callback={props.callback} setVisible={props.setVisible} list={props.list} />
+            </div>
+        </div>
+
+    );
+}
+
 export class Sliders extends Component {
 constructor(props){
     super(props);
@@ -45,8 +61,8 @@ onComponentMount(){
                                 <div className="margin-bottom-60">
                                     <SliderRecipe showRecipe={this.props.showRecipe} log={this.props.log} callback={this.props.callback} setVisible={this.props.setVisible} list={this.props.recipe3} />
                                 </div>
-
-                                
+                                <RecenltyOrdered showRecipe ={this.props.showRecipe} log={this.props.log} callback={this.props.callback} setVisible={this.props.setVisible} 
+                                    list={this.props.previouslyOrdered} show={this.props.isSignedIn}/>
                             </div>
                         </div>
                     </div>
