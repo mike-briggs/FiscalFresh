@@ -74,30 +74,28 @@ def get_pantry(email):
     entry = pantry_records.find_one({'email': email})
     return (json.dumps(entry['pantry_items']))
 
-def add_pantry(request_body):
+def add_pantry(email, request_body):
     if not request_body:
         request_body = request.form
-    
-    email = request_body['email']
-    additions = request_body['pantryItems']
+
+    #additions is a list instead of a single entity like in add_history
+    additions = request_body['new_pantry_items']
 
     if pantry_records.count_documents({'email':email}) == 0:
         new_entry={
             'email':email,
-            'items':[additions]
+            'pantry_items':[additions]
         }
         pantry_records.insert_one(new_entry)
 
     else:
         entry = pantry_records.find_one({'email':email})
-        for item in entry['items']:
-            if item['id'] == additions['id']:
-                return{
-                    'result':"success"
-                }
-        entry['items'].append(additions)
-        pantry_records.update_one({'email':email}, {"$set":{'items': entry['items']}})
-        return{
-            'result':"success"
-        }
+
+        for newItem in additions:
+            if newItem not in entry['pantry_items']:
+                entry['pantry_items'].append(newItem)
+        pantry_records.update_one({'email':email},{"$set":{'pantry_items': entry['pantry_items']}})
+    return{
+        'result':"success"
+    }
 

@@ -3,7 +3,7 @@ from flask import render_template
 from ordering import add_to_cart
 from recipe_search import get_recipes, get_recipes_nutrition, summ_recipe
 from recipe_ingredients import get_recipe_ingredients
-from user import get_recipe_history, login, get_pantry_items
+from user import get_recipe_history, login, get_pantry_items, add_pantry_items
 import database
 
 app = Flask(__name__,static_folder="./client/build/static", template_folder="./client/build")
@@ -46,6 +46,11 @@ def get_user_recipe_history():
 def get_user_pantry():
     #return list of pantry items from db
     return get_pantry_items()
+
+@app.route('/add-user-pantry', methods=['POST'])
+def add_user_pantry():
+    #return list of pantry items from db
+    return add_pantry_items()
 
 if __name__ == "__main__":
     app.run(debug=True)

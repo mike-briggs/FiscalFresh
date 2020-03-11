@@ -129,4 +129,11 @@ def get_pantry_items():
     else:
         return "must authenticate"
     return database.get_pantry(email)
+
+def add_pantry_items():
+    if 'mealplanner_auth_token' in request.cookies:
+        email = decode_auth_token(request.cookies['mealplanner_auth_token'])['email']
+    else:
+        return "must authenticate"
+    return database.add_pantry(email, request.get_json())
     
