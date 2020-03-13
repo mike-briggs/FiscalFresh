@@ -33,7 +33,7 @@ export class SignIn extends Component {
 				</div>
 
 
-				<div paddingTop="20px" className="text-center">
+				<div style={{paddingTop:'20px'}} className="text-center">
 					<a className="txt2" href="https://instacart.ca/">
 						Create your Account
 							<i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
