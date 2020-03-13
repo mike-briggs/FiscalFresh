@@ -54,12 +54,12 @@ def add_history(request_body):
         for recipe in entry['recipes']:
             if recipe['id'] == additions['id']:
                 return {
-                    'result': "success"
+                    'result': "successfully added history item"
                 }
         entry['recipes'].append(additions)        
         recipe_history_records.update_one({'email':email}, {"$set":{'recipes': entry['recipes']}})
     return {
-        'result': "success"
+        'result': "successfully added history item"
     }
 
 def get_pantry(email):
@@ -96,7 +96,7 @@ def add_pantry(email, request_body):
                 entry['pantry_items'].append(newItem)
         pantry_records.update_one({'email':email},{"$set":{'pantry_items': entry['pantry_items']}})
     return{
-        'result':"success"
+        'result':"successfully added pantry item(s)"
     }
 
 def delete_pantry(email, request_body):
@@ -116,5 +116,5 @@ def delete_pantry(email, request_body):
         del pantry[index]
         pantry_records.update_one({'email':email},{"$set":{'pantry_items': pantry}})
     return{
-        'result':"success"
+        'result':"successfully deleted pantry item"
     }
