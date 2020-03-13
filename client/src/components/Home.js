@@ -598,6 +598,7 @@ class Home extends React.Component {
     }
 
     onLoginSuccess(method, response) {
+        console.log("in method")
         store.addNotification({
             title: 'Login Success',
             message: 'Successfully Logged Into Instacart',

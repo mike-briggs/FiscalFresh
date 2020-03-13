@@ -57,3 +57,60 @@ def add_history(request_body):
     return {
         'result': "success"
     }
+
+def get_pantry(email):
+    cursor = pantry_records.find({})
+    for document in cursor:
+        print(document)
+    if (pantry_records.count_documents({'email':email}) != 1):
+        return {
+            'err':"email not found"
+        }
+
+    entry = pantry_records.find_one({'email': email})
+    return (json.dumps(entry['pantry_items']))
+
+def add_pantry(email, request_body):
+    if not request_body:
+        request_body = request.form
+
+    #additions is a list instead of a single entity like in add_history
+    additions = request_body['new_pantry_items']
+
+    if pantry_records.count_documents({'email':email}) == 0:
+        new_entry={
+            'email':email,
+            'pantry_items':[additions]
+        }
+        pantry_records.insert_one(new_entry)
+
+    else:
+        entry = pantry_records.find_one({'email':email})
+
+        for newItem in additions:
+            if newItem not in entry['pantry_items']:
+                entry['pantry_items'].append(newItem)
+        pantry_records.update_one({'email':email},{"$set":{'pantry_items': entry['pantry_items']}})
+    return{
+        'result':"success"
+    }
+
+def delete_pantry(email, request_body):
+    #take in the email and id of the pantry array to delete
+    if not request_body:
+            request_body = request.form
+
+    index = request_body['Deletion_Index']
+
+    if pantry_records.count_documents({'email':email}) == 0:
+        return{
+            'result':'Error: email not found'
+        }
+    else:
+        entry = pantry_records.find_one({'email':email})
+        pantry = entry['pantry_items'][0]
+        del pantry[index]
+        pantry_records.update_one({'email':email},{"$set":{'pantry_items': pantry}})
+    return{
+        'result':"success"
+    }
